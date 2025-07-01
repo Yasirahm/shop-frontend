@@ -6,6 +6,11 @@ const AdminPanel = () => {
   const navigate = useNavigate();
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
+useEffect(() => {
+  if (!isAdmin) navigate("/admin-login");
+  fetchSubmissions();
+}, [isAdmin, navigate]);
+
   const [productForm, setProductForm] = useState({
     name: "",
     description: "",
