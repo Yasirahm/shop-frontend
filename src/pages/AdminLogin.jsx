@@ -11,14 +11,10 @@ const AdminLogin = () => {
 
     // ✅ Basic hardcoded admin check
     if (
-  (email === "uzairmursaleen8@gmail.com" && password === "Mehuza@6389#peace") ||
-  (email === "ratherseenu16@gmail.com" && password === "Yasir@22250040")
-) {
-  localStorage.setItem("isAdmin", "true");
-}
-
-
-      // ✅ Redirect to Admin Panel
+      (email === "uzairmursaleen8@gmail.com" && password === "Mehuza@6389#peace") ||
+      (email === "ratherseenu16@gmail.com" && password === "Yasir@22250040")
+    ) {
+      localStorage.setItem("isAdmin", "true");
       alert("✅ Admin login successful!");
       navigate("/admin-panel22250040");
     } else {
