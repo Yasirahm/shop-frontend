@@ -15,7 +15,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("https://shop-backend-1-ydei.onrender.com/api/products");
+      const res = await axios.get("https://shop-backend-svqa.onrender.com/api/products");
       setProducts(res.data);
     } catch (err) {
       console.error("❌ Failed to load products", err);

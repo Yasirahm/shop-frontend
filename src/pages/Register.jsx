@@ -9,7 +9,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://shop-backend-1-ydei.onrender.com/api/auth/register", form);
+      await axios.post("https://shop-backend-svqa.onrender.com/api/auth/register", form);
       alert("✅ Registered successfully. Please login.");
       navigate("/login");
     } catch (err) {
