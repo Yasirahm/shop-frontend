@@ -8,7 +8,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       if (!id) return;
-      const res = await axios.get(`http://localhost:5000/api/auth/me/${id}`);
+      const res = await axios.get(`https://shop-backend-1-ydei.onrender.com/api/auth/me/${id}`);
       setUser(res.data);
     };
     fetchUser();

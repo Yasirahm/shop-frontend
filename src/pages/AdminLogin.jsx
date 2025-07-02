@@ -12,7 +12,7 @@ const AdminLogin = () => {
     // ✅ Basic hardcoded admin check
     if (
       (email === "uzairmursaleen8@gmail.com" && password === "Mehuza@6389#peace") ||
-      (email === "ratherseenu16@gmail.com" && password === "Yasir@22250040")
+      (email === "ratherseenu16@gmail.com" && password === "yasir")
     ) {
       localStorage.setItem("isAdmin", "true");
       alert("✅ Admin login successful!");

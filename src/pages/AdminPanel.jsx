@@ -6,11 +6,6 @@ const AdminPanel = () => {
   const navigate = useNavigate();
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-useEffect(() => {
-  if (!isAdmin) navigate("/admin-login");
-  fetchSubmissions();
-}, [isAdmin, navigate]);
-
   const [productForm, setProductForm] = useState({
     name: "",
     description: "",
@@ -30,30 +25,43 @@ useEffect(() => {
   const [submissions, setSubmissions] = useState([]);
   const [filteredType, setFilteredType] = useState("all");
 
+  // ✅ Only one useEffect needed
   useEffect(() => {
-    if (!isAdmin) navigate("/admin-login");
-    fetchSubmissions();
+    if (!isAdmin) {
+      navigate("/admin-login");
+    } else {
+      fetchSubmissions();
+    }
   }, [isAdmin, navigate]);
 
+  // ✅ Fetching submissions
   const fetchSubmissions = async () => {
     try {
-      const res = await axios.get("https://shop-backend-5re8.onrender.com/api/forms/all");
+      const res = await axios.get("https://shop-backend-1-ydei.onrender.com/api/forms/all");
       setSubmissions(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch submissions:", err);
     }
   };
 
+  // ✅ Handle input changes
   const handleProductChange = (e) => {
     const { name, value, files } = e.target;
-    setProductForm({ ...productForm, [name]: files ? files[0] : value });
+    setProductForm((prev) => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
   };
 
   const handleOfferChange = (e) => {
     const { name, value, files } = e.target;
-    setOfferForm({ ...offerForm, [name]: files ? files[0] : value });
+    setOfferForm((prev) => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
   };
 
+  // ✅ Submit Product
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -62,8 +70,9 @@ useEffect(() => {
     );
 
     try {
-      await axios.post("https://shop-backend-5re8.onrender.com/api/products", formData, {
+      await axios.post("https://shop-backend-1-ydei.onrender.com/api/products", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
       });
       alert("✅ Product added!");
       setProductForm({
@@ -80,16 +89,18 @@ useEffect(() => {
     }
   };
 
+  // ✅ Submit Offer
   const handleAddOffer = async (e) => {
     e.preventDefault();
-    const data = new FormData();
+    const formData = new FormData();
     Object.entries(offerForm).forEach(([key, value]) =>
-      data.append(key, value)
+      formData.append(key, value)
     );
 
     try {
-      await axios.post("https://shop-backend-5re8.onrender.com/api/offers", data, {
+      await axios.post("https://shop-backend-1-ydei.onrender.com/api/offers", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        withCredentials: true,
       });
       alert("✅ Offer added!");
       setOfferForm({ title: "", description: "", tag: "", image: null });
@@ -99,10 +110,13 @@ useEffect(() => {
     }
   };
 
+  // ✅ Delete Submission
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this submission?")) {
       try {
-        await axios.delete(`https://shop-backend-5re8.onrender.com/api/forms/${id}`);
+        await axios.delete(`https://shop-backend-1-ydei.onrender.com/api/forms/${id}`, {
+          withCredentials: true,
+        });
         fetchSubmissions();
       } catch (err) {
         console.error("❌ Failed to delete:", err);
@@ -111,6 +125,7 @@ useEffect(() => {
     }
   };
 
+  // ✅ Filtered Submissions
   const filteredSubmissions =
     filteredType === "all"
       ? submissions
@@ -120,13 +135,8 @@ useEffect(() => {
     <div className="min-h-screen bg-gray-100 px-4 sm:px-6 py-10 space-y-14">
       {/* 🛒 Upload New Product */}
       <section className="bg-white p-6 rounded shadow max-w-4xl mx-auto w-full">
-        <h2 className="text-2xl font-bold text-blue-600 mb-4">
-          🛒 Upload New Product
-        </h2>
-        <form
-          onSubmit={handleAddProduct}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-        >
+        <h2 className="text-2xl font-bold text-blue-600 mb-4">🛒 Upload New Product</h2>
+        <form onSubmit={handleAddProduct} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {["name", "description", "price", "discount", "stock"].map((field) => (
             <input
               key={field}
@@ -157,13 +167,8 @@ useEffect(() => {
 
       {/* 🎉 Add New Offer */}
       <section className="bg-white p-6 rounded shadow max-w-4xl mx-auto w-full">
-        <h2 className="text-2xl font-bold text-purple-600 mb-4">
-          🎉 Add New Offer
-        </h2>
-        <form
-          onSubmit={handleAddOffer}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-        >
+        <h2 className="text-2xl font-bold text-purple-600 mb-4">🎉 Add New Offer</h2>
+        <form onSubmit={handleAddOffer} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {["title", "description", "tag"].map((field) => (
             <input
               key={field}
@@ -195,13 +200,11 @@ useEffect(() => {
       {/* 📋 User Submissions */}
       <section className="bg-white p-6 rounded shadow max-w-6xl mx-auto w-full">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-3">
-          <h2 className="text-2xl font-bold text-red-600">
-            📋 User Submissions
-          </h2>
+          <h2 className="text-2xl font-bold text-red-600">📋 User Submissions</h2>
           <select
             value={filteredType}
             onChange={(e) => setFilteredType(e.target.value)}
-            className="border px-4 py-2 rounded text-gray-200 w-full sm:w-auto"
+            className="border px-4 py-2 rounded text-gray-800 w-full sm:w-auto"
           >
             <option value="all">All Forms</option>
             <option value="contact">Contact</option>
@@ -229,16 +232,14 @@ useEffect(() => {
                   🗑️ Delete
                 </button>
                 <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">📌 Type:</span>{" "}
-                  {entry.formType} <br />
+                  <span className="font-semibold">📌 Type:</span> {entry.formType} <br />
                   <span className="font-semibold">📅 Date:</span>{" "}
                   {new Date(entry.createdAt).toLocaleString()}
                 </p>
                 <ul className="list-disc pl-5 text-sm text-gray-800 space-y-1">
                   {Object.entries(entry.data).map(([key, val], i) => (
                     <li key={i}>
-                      <strong>{key[0].toUpperCase() + key.slice(1)}:</strong>{" "}
-                      {val}
+                      <strong>{key[0].toUpperCase() + key.slice(1)}:</strong> {val}
                     </li>
                   ))}
                 </ul>
