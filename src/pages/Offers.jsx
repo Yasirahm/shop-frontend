@@ -35,7 +35,7 @@ const Offers = () => {
   useEffect(() => {
     // ✅ Fetch offers from backend
     axios
-      .get("http://localhost:5000/api/offers")
+      .get("https://shop-backend-irpl.onrender.com/api/offers")
       .then((res) => setDynamicOffers(res.data))
       .catch((err) => console.error("❌ Error loading dynamic offers", err));
   }, []);

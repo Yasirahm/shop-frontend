@@ -16,7 +16,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get("https://shop-backend-irpl.onrender.com/api/products");
       setProducts(res.data);
     } catch (err) {
       console.error("❌ Failed to load products", err);

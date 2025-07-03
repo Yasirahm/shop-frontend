@@ -26,7 +26,7 @@ const AddOffer = () => {
     data.append("image", form.image);
 
     try {
-      await axios.post("http://localhost:5000/api/offers", data);
+      await axios.post("https://shop-backend-irpl.onrender.com/api/offers", data);
       alert("✅ Offer added successfully");
     } catch (error) {
       alert("❌ Failed to add offer");
