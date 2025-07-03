@@ -15,7 +15,7 @@ const Footer = () => {
           </p>
           <div className="mt-4 flex items-center gap-3">
             <a
-              href="https://newageversatilestudio.netlify.app/?fbclid=PAQ0xDSwLQRaVleHRuA2FlbQIxMQABp8xuN2JxOjAl3MFqwNve2wI8hVHnI2ixkUOqlOqW8-lsqlIxaxVlwzha6fqZ_aem_mGsT38Ad5JxrUOKqAJNcGw"
+              href="https://www.instagram.com/newage_versatile_studio?igsh=YmFsd2h3aWVmOHA1"
               target="_blank"
               rel="noopener noreferrer"
               className="text-pink-500 hover:text-pink-400 text-xl"
