@@ -1,4 +1,4 @@
-import heroImage from "../assets/logo.jpg";
+import heroImage from "../assets/Logo.jpg";
 import CallbackPopup from "../components/CallbackPopup";
 
 import WhatsappButton from "../components/WhatsappButton";
