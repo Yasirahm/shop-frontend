@@ -77,7 +77,7 @@ const Home = () => {
             {/* Card 3 */}
             <div className="bg-white border-t-4 border-purple-600 p-8 shadow-xl rounded-2xl text-center hover:scale-105 transition">
               <img
-                src="https://media.istockphoto.com/id/1083524158/photo/woman-wrapping-christmas-gifts.webp"
+                src="https://media.istockphoto.com/id/1083524158/photo/woman-wrapping-christmas-gifts.webp?a=1&b=1&s=612x612&w=0&k=20&c=JZL59eRPw8fo1rk8XgHp69moGGQ8MBwdWRDL9knCGAU="
                 alt="Name Gifts"
                 className="w-full h-48 object-cover rounded-xl mb-4"
               />
@@ -101,7 +101,7 @@ const Home = () => {
             {/* Story 1 */}
             <div className="bg-white rounded-3xl p-6 border border-pink-100 shadow-md hover:shadow-2xl hover:-translate-y-1 transition">
               <img
-                src="https://media.istockphoto.com/id/506840479/photo/frame-samples.webp"
+                src="https://media.istockphoto.com/id/506840479/photo/frame-samples.webp?a=1&b=1&s=612x612&w=0&k=20&c=NJmoBb6nwTs_yEGVkZgEdLb6wMApIEh__XaW9mWTWQc="
                 alt="Customer Review"
                 className="w-full h-60 object-cover rounded-xl mb-5"
               />
