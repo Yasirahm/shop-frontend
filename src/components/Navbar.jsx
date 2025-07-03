@@ -11,8 +11,8 @@ const Navbar = () => {
     <nav className="bg-white shadow sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-1  py-3 flex justify-between items-center">
         {/* Logo */}
-        <div className="text-sm sm:text-lg md:text-2xl font-bold text-blue-600">
-  <Link to="/">🛍 NewAge Versatile Studio Store</Link>
+        <div className="text-lg sm:text-lg md:text-2xl font-bold text-blue-600">
+  <Link to="/">🛍 NewAge Versatile Studio </Link>
 </div>
 
 

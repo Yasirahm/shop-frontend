@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/Home";
 import Offers from "./pages/Offers";
@@ -14,7 +16,9 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminPanel from "./pages/AdminPanel";
 import WhatsappButton from "./components/WhatsappButton";
 import AddOffer from "./pages/AddOffer";
-import { NotFoundPage } from "./pages/Error"; // Adjust path if needed
+import { NotFoundPage } from "./pages/Error";
+import ThankYou from "./pages/ThankYou";
+ // Adjust path if needed
 
 axios.defaults.withCredentials = true;
 
@@ -37,6 +41,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/thank-you" element={<ThankYou />} />
+
 
         {/* 🔐 Admin Panel Protection */}
         <Route
@@ -44,6 +50,7 @@ function App() {
           element={isAdmin ? <AdminPanel /> : <Navigate to="/admin-login" replace />}
         />
       </Routes>
+      <ToastContainer position="top-center" autoClose={9000} />
       <Footer />
     </BrowserRouter>
   );

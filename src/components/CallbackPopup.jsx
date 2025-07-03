@@ -28,7 +28,7 @@ const CallbackPopup = () => {
     e.preventDefault();
 
     try {
-      await axios.post("https://shop-backend-svqa.onrender.com/api/forms/submit", {
+      await axios.post("http://localhost:5000/api/forms/submit", {
         formType: "callback",
         data: formData,
       });

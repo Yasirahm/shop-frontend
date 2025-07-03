@@ -4,6 +4,7 @@ import CallbackPopup from "../components/CallbackPopup";
 import WhatsappButton from "../components/WhatsappButton";
 import Customize from "./Customize";
 import Other from "./Other";
+import Products from "./Products";
 import Service from "./Service";
 
 
@@ -37,7 +38,7 @@ const Home = () => {
     </a>
   </div>
 </section>
-
+  <Products />
 
       {/* Why Choose Us Section */}
       <section className="py-20 px-6 md:px-20 bg-gradient-to-br from-white to-gray-100">
@@ -137,6 +138,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+      
       </section>
       <Service/>
       <Other/>

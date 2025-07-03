@@ -1,77 +1,79 @@
-  import { useEffect, useState } from "react";
-  import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-  const Cart = () => {
-    const [cart, setCart] = useState([]);
-    const [subtotal, setSubtotal] = useState(0);
-    const navigate = useNavigate();
+const Cart = () => {
+  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([]);
 
-    // ✅ Load cart from localStorage
-    const fetchCart = () => {
-      const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-      setCart(storedCart);
-      calculateSubtotal(storedCart);
-    };
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItems(storedCart);
+  }, []);
 
-    // ✅ Subtotal calculation
-    const calculateSubtotal = (cartItems) => {
-      let total = 0;
-      cartItems.forEach((item) => {
-        const priceAfterDiscount =
-          item.price - (item.price * item.discount) / 100;
-        total += item.quantity * priceAfterDiscount;
-      });
-      setSubtotal(total);
-    };
+  const handleRemove = (index) => {
+    const updatedCart = [...cartItems];
+    updatedCart.splice(index, 1);
+    setCartItems(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
 
-    // ✅ Remove from localStorage cart
-    const removeItem = (productId) => {
-      const updatedCart = cart.filter((item) => item._id !== productId);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      setCart(updatedCart);
-      calculateSubtotal(updatedCart);
-      alert("🗑️ Item removed from cart");
-    };
+  const calculateSubtotal = () => {
+    return cartItems.reduce((total, item) => {
+      const itemTotal = (parseFloat(item.price) || 0) * (item.quantity || 1);
+      return total + itemTotal;
+    }, 0);
+  };
 
-    const handleBuyNow = () => {
-      navigate("/checkout");
-    };
+  const subtotal = calculateSubtotal();
 
-    useEffect(() => {
-      fetchCart();
-    }, []);
+  const handleBuyNow = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty.");
+      return;
+    }
 
-    return (
-      <div className="min-h-screen bg-gray-100 px-6 py-10">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          🛒 Your Cart
-        </h1>
+    // ✅ Save checkout items and subtotal
+    localStorage.setItem("checkoutItems", JSON.stringify(cartItems));
+    localStorage.setItem("cartTotal", subtotal);
 
-        {cart.length === 0 ? (
-          <p className="text-center text-gray-500">Cart is empty.</p>
+    // ✅ Clear cart
+    setCartItems([]);
+    localStorage.removeItem("cart");
+
+    // ✅ Navigate to checkout
+    navigate("/checkout");
+  };
+
+  return (
+    <div className="min-h-screen px-4 py-10 bg-gray-50">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">🛒 Your Cart</h2>
+
+        {cartItems.length === 0 ? (
+          <p className="text-center text-gray-600">Your cart is empty.</p>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {cart.map((item) => (
+            <div className="grid grid-cols-1 gap-6">
+              {cartItems.map((item, idx) => (
                 <div
-                  key={item._id}
-                  className="bg-white p-4 rounded shadow-md flex items-center gap-4"
+                  key={idx}
+                  className="bg-white rounded-xl shadow p-5 flex gap-4 items-center"
                 >
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-24 h-24 object-cover rounded"
+                    className="w-24 h-24 object-cover rounded-lg"
                   />
-                  <div className="flex-grow">
-                    <h2 className="text-lg font-semibold">{item.name}</h2>
-                    <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
-                    <p className="text-sm text-gray-700">
-                      ₹{item.price - (item.price * item.discount) / 100}
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="mt-1 text-blue-600 font-medium">
+                      ₹{item.price} × {item.quantity}
                     </p>
                   </div>
                   <button
-                    onClick={() => removeItem(item._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    onClick={() => handleRemove(idx)}
+                    className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
                   >
                     Remove
                   </button>
@@ -79,11 +81,13 @@
               ))}
             </div>
 
-            <div className="mt-8 text-center">
-              <p className="text-xl font-bold text-gray-800">Subtotal: ₹{subtotal}</p>
+            <div className="mt-8 text-right">
+              <h3 className="text-xl font-bold text-gray-800">
+                Subtotal: ₹{subtotal.toFixed(2)}
+              </h3>
               <button
                 onClick={handleBuyNow}
-                className="mt-4 bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+                className="mt-4 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
               >
                 Buy Now
               </button>
@@ -91,7 +95,8 @@
           </>
         )}
       </div>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Cart;
+export default Cart;
