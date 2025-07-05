@@ -100,7 +100,7 @@ const Home = () => {
 
 
       {/* Customer Stories */}
-      <section className="py-24 px-6 md:px-20 bg-gradient-to-br from-white via-gray-50 to-gray-100">
+     <section className="py-24 px-6 md:px-20 bg-gradient-to-br from-white via-gray-50 to-gray-100">
   <div className="max-w-7xl mx-auto">
     <h2 className="text-4xl font-bold text-center text-gray-800 mb-20 tracking-tight">
       Real <span className="text-pink-600">Smiles</span> from Happy Customers
@@ -108,13 +108,17 @@ const Home = () => {
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 justify-center">
       {/* Card 1 */}
-      <div className="book mx-auto">
-        <div className="cover">
+      <div className="book mx-auto relative">
+        <div className="cover relative overflow-hidden">
           <img
             src="https://media.istockphoto.com/id/506840479/photo/frame-samples.webp?a=1&b=1&s=612x612&w=0&k=20&c=NJmoBb6nwTs_yEGVkZgEdLb6wMApIEh__XaW9mWTWQc="
             alt="Customer Review"
             className="w-full h-full object-cover rounded-[10px]"
           />
+          {/* 🟢 Always-visible Overlay */}
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-lg font-semibold rounded-[10px]">
+            Click Me
+          </div>
         </div>
         <div className="p-4 text-center">
           <h3 className="text-xl font-semibold mb-2">Areeba’s Custom Frame</h3>
@@ -125,13 +129,16 @@ const Home = () => {
       </div>
 
       {/* Card 2 */}
-      <div className="book mx-auto">
-        <div className="cover">
+      <div className="book mx-auto relative">
+        <div className="cover relative overflow-hidden">
           <img
             src="https://plus.unsplash.com/premium_photo-1673356301514-2cad91907f74?w=600"
             alt="Customer Review"
             className="w-full h-full object-cover rounded-[10px]"
           />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-lg font-semibold rounded-[10px]">
+            Click Me
+          </div>
         </div>
         <div className="p-4 text-center">
           <h3 className="text-xl font-semibold mb-2">Yasir’s Branded Tees</h3>
@@ -142,13 +149,16 @@ const Home = () => {
       </div>
 
       {/* Card 3 */}
-      <div className="book mx-auto">
-        <div className="cover">
+      <div className="book mx-auto relative">
+        <div className="cover relative overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1617902200814-abc4adc59011?w=600"
             alt="Customer Review"
             className="w-full h-full object-cover rounded-[10px]"
           />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-white text-lg font-semibold rounded-[10px]">
+            Click Me
+          </div>
         </div>
         <div className="p-4 text-center">
           <h3 className="text-xl font-semibold mb-2">Irfan’s Gift Combo</h3>
