@@ -19,6 +19,7 @@ import AddOffer from "./pages/AddOffer";
 import { NotFoundPage } from "./pages/Error";
 import ThankYou from "./pages/ThankYou";
  // Adjust path if needed
+ import ScrollToTop from "./components/ScrollToTop";
 
 axios.defaults.withCredentials = true;
 
@@ -28,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <ScrollToTop />
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
 

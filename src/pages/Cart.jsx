@@ -19,7 +19,10 @@ const Cart = () => {
 
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => {
-      const itemTotal = (parseFloat(item.price) || 0) * (item.quantity || 1);
+      const price = parseFloat(item.price) || 0;
+      const discount = parseFloat(item.discount) || 0;
+      const discountedPrice = Math.max(0, price - discount);
+      const itemTotal = discountedPrice * (item.quantity || 1);
       return total + itemTotal;
     }, 0);
   };
@@ -32,15 +35,12 @@ const Cart = () => {
       return;
     }
 
-    // ✅ Save checkout items and subtotal
     localStorage.setItem("checkoutItems", JSON.stringify(cartItems));
     localStorage.setItem("cartTotal", subtotal);
 
-    // ✅ Clear cart
     setCartItems([]);
     localStorage.removeItem("cart");
 
-    // ✅ Navigate to checkout
     navigate("/checkout");
   };
 
@@ -54,31 +54,44 @@ const Cart = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 gap-6">
-              {cartItems.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-xl shadow p-5 flex gap-4 items-center"
-                >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-24 h-24 object-cover rounded-lg"
-                  />
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
-                    <p className="text-sm text-gray-500">{item.description}</p>
-                    <p className="mt-1 text-blue-600 font-medium">
-                      ₹{item.price} × {item.quantity}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => handleRemove(idx)}
-                    className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
+              {cartItems.map((item, idx) => {
+                const price = parseFloat(item.price) || 0;
+                const discount = parseFloat(item.discount) || 0;
+                const discountedPrice = Math.max(0, price - discount);
+
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-xl shadow p-5 flex gap-4 items-center"
                   >
-                    Remove
-                  </button>
-                </div>
-              ))}
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-24 h-24 object-cover rounded-lg"
+                    />
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                      <p className="text-sm text-gray-500">{item.description}</p>
+                      <div className="mt-1">
+                        <p className="text-blue-600 font-medium">
+                          ₹{discountedPrice.toFixed(2)} × {item.quantity}
+                        </p>
+                        {discount > 0 && (
+                          <p className="text-sm text-gray-500 line-through">
+                            ₹{price.toFixed(2)} (−₹{discount})
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleRemove(idx)}
+                      className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="mt-8 text-right">

@@ -1,4 +1,5 @@
 // src/pages/Service.jsx
+
 const services = [
   {
     title: "Pamphlets & Posters",
