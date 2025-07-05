@@ -58,7 +58,7 @@ const Checkout = () => {
 
   const handleCOD = async () => {
     try {
-      await axios.post("https://shop-backend-irpl.onrender.com/api/forms/submit", {
+      await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
         formType: "checkout",
         data: {
           ...shippingInfo,
@@ -85,7 +85,7 @@ const Checkout = () => {
 
   const handleOnlinePayment = async () => {
     try {
-      const { data } = await axios.post("https://shop-backend-irpl.onrender.com/api/payment/create-order", {
+      const { data } = await axios.post("https://shop-backend-1-4ypi.onrender.com/api/payment/create-order", {
         amount,
       });
 
@@ -99,7 +99,7 @@ const Checkout = () => {
         handler: async function (response) {
           toast.success("✅ Payment successful: " + response.razorpay_payment_id);
 
-          await axios.post("https://shop-backend-irpl.onrender.com/api/forms/submit", {
+          await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
             formType: "checkout",
             data: {
               ...shippingInfo,

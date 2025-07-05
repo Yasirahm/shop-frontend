@@ -18,7 +18,7 @@ const Customize = () => {
     e.preventDefault();
 
     try {
-      await axios.post("https://shop-backend-irpl.onrender.com/api/forms/submit", {
+      await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
         formType: "customize",
         data: form,
       });

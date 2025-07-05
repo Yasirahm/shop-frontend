@@ -35,7 +35,7 @@ const AdminPanel = () => {
 
   const fetchSubmissions = async () => {
     try {
-      const res = await axios.get("https://shop-backend-irpl.onrender.com/api/forms/all");
+      const res = await axios.get("https://shop-backend-1-4ypi.onrender.com/api/forms/all");
       setSubmissions(res.data);
     } catch (err) {
       console.error("❌ Failed to fetch submissions:", err);
@@ -74,7 +74,7 @@ const AdminPanel = () => {
     });
 
     try {
-      await axios.post("https://shop-backend-irpl.onrender.com/api/products", formData, {
+      await axios.post("https://shop-backend-1-4ypi.onrender.com/api/products", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
@@ -109,7 +109,7 @@ const AdminPanel = () => {
     });
 
     try {
-      await axios.post("https://shop-backend-irpl.onrender.com/api/offers", formData, {
+      await axios.post("https://shop-backend-1-4ypi.onrender.com/api/offers", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
@@ -124,7 +124,7 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this submission?")) {
       try {
-        await axios.delete(`https://shop-backend-irpl.onrender.com/api/forms/${id}`, {
+        await axios.delete(`https://shop-backend-1-4ypi.onrender.com/api/forms/${id}`, {
           withCredentials: true,
         });
         fetchSubmissions();
