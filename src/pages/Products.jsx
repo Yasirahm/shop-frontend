@@ -179,7 +179,7 @@ const Products = () => {
                   alt={product.name}
                   className="w-full h-48 object-cover rounded"
                 />
-                <h2 className="text-2xl font-bold mt-3">{product.name}</h2>
+                <h2 className="text-2xl text-gray-700 font-bold mt-3">{product.name}</h2>
                 <p className="text-gray-600 text-sm mt-1">{product.description}</p>
                 <div className="flex justify-between items-center mt-4">
                   <span className="text-blue-600 font-bold text-lg">₹{finalPrice}</span>
