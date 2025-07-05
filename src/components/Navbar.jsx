@@ -19,7 +19,7 @@ const Navbar = () => {
             alt="NewAge Logo"
             className="h-10 w-auto object-contain"
           />
-          <span className="hidden sm:inline text-lg md:text-2xl font-bold text-blue-600">
+          <span className=" text-lg md:text-2xl font-bold text-blue-600">
             NewAge Versatile Studio
           </span>
         </Link>

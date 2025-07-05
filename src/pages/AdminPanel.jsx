@@ -25,7 +25,6 @@ const AdminPanel = () => {
   const [submissions, setSubmissions] = useState([]);
   const [filteredType, setFilteredType] = useState("all");
 
-  // ✅ Only one useEffect needed
   useEffect(() => {
     if (!isAdmin) {
       navigate("/admin-login");
@@ -34,7 +33,6 @@ const AdminPanel = () => {
     }
   }, [isAdmin, navigate]);
 
-  // ✅ Fetching submissions
   const fetchSubmissions = async () => {
     try {
       const res = await axios.get("https://shop-backend-irpl.onrender.com/api/forms/all");
@@ -44,7 +42,6 @@ const AdminPanel = () => {
     }
   };
 
-  // ✅ Handle input changes
   const handleProductChange = (e) => {
     const { name, value, files } = e.target;
     setProductForm((prev) => ({
@@ -61,13 +58,20 @@ const AdminPanel = () => {
     }));
   };
 
-  // ✅ Submit Product
   const handleAddProduct = async (e) => {
     e.preventDefault();
+
+    if (!productForm.image) {
+      alert("Please upload a product image");
+      return;
+    }
+
     const formData = new FormData();
-    Object.entries(productForm).forEach(([key, value]) =>
-      formData.append(key, value)
-    );
+    Object.entries(productForm).forEach(([key, value]) => {
+      if (value !== null && value !== "") {
+        formData.append(key, value);
+      }
+    });
 
     try {
       await axios.post("https://shop-backend-irpl.onrender.com/api/products", formData, {
@@ -89,13 +93,20 @@ const AdminPanel = () => {
     }
   };
 
-  // ✅ Submit Offer
   const handleAddOffer = async (e) => {
     e.preventDefault();
+
+    if (!offerForm.image) {
+      alert("Please upload an offer image");
+      return;
+    }
+
     const formData = new FormData();
-    Object.entries(offerForm).forEach(([key, value]) =>
-      formData.append(key, value)
-    );
+    Object.entries(offerForm).forEach(([key, value]) => {
+      if (value !== null && value !== "") {
+        formData.append(key, value);
+      }
+    });
 
     try {
       await axios.post("https://shop-backend-irpl.onrender.com/api/offers", formData, {
@@ -110,7 +121,6 @@ const AdminPanel = () => {
     }
   };
 
-  // ✅ Delete Submission
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this submission?")) {
       try {
@@ -125,7 +135,6 @@ const AdminPanel = () => {
     }
   };
 
-  // ✅ Filtered Submissions
   const filteredSubmissions =
     filteredType === "all"
       ? submissions
@@ -204,7 +213,7 @@ const AdminPanel = () => {
           <select
             value={filteredType}
             onChange={(e) => setFilteredType(e.target.value)}
-            className="border px-4 py-2 rounded text-gray-200 w-full sm:w-auto"
+            className="border px-4 py-2 rounded text-gray-600 w-full sm:w-auto"
           >
             <option value="all">All Forms</option>
             <option value="contact">Contact</option>
