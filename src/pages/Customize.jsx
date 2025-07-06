@@ -35,8 +35,6 @@ Our team will get in touch within 48 hours to discuss the details.
 
 ✅ We look forward to crafting your perfect product!`);
 
-
-      // Reset form after submission
       setForm({
         productName: "",
         description: "",
@@ -52,23 +50,23 @@ Our team will get in touch within 48 hours to discuss the details.
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-start py-10 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-blue-100 flex justify-center items-start py-10 px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-xl p-8 max-w-2xl w-full"
+        className="w-full max-w-2xl bg-white/60 backdrop-blur-md rounded-xl shadow-2xl p-6 sm:p-10 border border-blue-200"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
-          Customize Your Product
+        <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-6 tracking-tight">
+          ✨ Customize Your Product
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid  gap-6 sm:grid-cols-2">
           <input
             name="productName"
             placeholder="Product Name"
             value={form.productName}
             onChange={handleChange}
             required
-            className="border px-3 py-2 rounded"
+            className="p-3 rounded-md w-full bg-white text-black placeholder:text-black shadow-lg outline-none border border-transparent focus:border-blue-500 transition"
           />
           <input
             name="size"
@@ -76,7 +74,7 @@ Our team will get in touch within 48 hours to discuss the details.
             value={form.size}
             onChange={handleChange}
             required
-            className="border px-3 py-2 rounded"
+            className="p-3 rounded-md w-full bg-white text-black placeholder:text-black shadow-lg outline-none border border-transparent focus:border-blue-500 transition"
           />
           <input
             name="color"
@@ -84,7 +82,7 @@ Our team will get in touch within 48 hours to discuss the details.
             value={form.color}
             onChange={handleChange}
             required
-            className="border px-3 py-2 rounded"
+            className="p-3 rounded-md w-full bg-white text-black placeholder:text-black shadow-lg outline-none border border-transparent focus:border-blue-500 transition"
           />
           <input
             name="quantity"
@@ -93,14 +91,14 @@ Our team will get in touch within 48 hours to discuss the details.
             value={form.quantity}
             onChange={handleChange}
             required
-            className="border px-3 py-2 rounded"
+            className="p-3 rounded-md w-full text-black bg-white placeholder:text-black shadow-lg outline-none border border-transparent focus:border-blue-500 transition"
           />
           <input
             name="imageUrl"
             placeholder="Reference Image URL"
             value={form.imageUrl}
             onChange={handleChange}
-            className="border px-3 py-2 rounded col-span-2"
+            className="p-3 rounded-md w-full col-span-full bg-white text-black placeholder:text-black shadow-lg outline-none border border-transparent focus:border-blue-500 transition"
           />
         </div>
 
@@ -111,14 +109,14 @@ Our team will get in touch within 48 hours to discuss the details.
           onChange={handleChange}
           required
           rows="4"
-          className="w-full mt-4 border px-3 py-2 rounded"
+          className="mt-6 w-full p-3 rounded-md text-black bg-white placeholder:text-black shadow-lg outline-none border border-transparent focus:border-blue-500 transition"
         ></textarea>
 
         <button
           type="submit"
-          className="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="mt-6 w-full bg-white hover:bg-blue-50 text-blue-700 hover:text-blue-900 font-semibold py-3 rounded-md shadow-xl border border-blue-300 hover:border-blue-500 transition-all duration-300"
         >
-          Submit Request
+          🚀 Submit Customization Request
         </button>
       </form>
     </div>

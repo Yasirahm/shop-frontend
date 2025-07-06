@@ -3,96 +3,97 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white mt-16">
-      <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-        {/* Logo & Description */}
+    <footer className="bg-gray-900 text-white">
+      {/* Top section */}
+      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* Studio Info */}
         <div>
-          <h2 className="text-xl font-bold text-blue-400 mb-2">
+          <h2 className="text-2xl font-extrabold text-blue-400 mb-3 tracking-tight">
             NewAge Versatile Studio
           </h2>
           <p className="text-sm text-gray-400">
             Premium products delivered with love. Customize your style, shop with comfort.
           </p>
-            <div className="mt-4 flex items-center gap-3">
+
+          <div className="mt-5 flex items-center gap-3">
+            <a
+              href="https://www.instagram.com/newage_versatile_studio?igsh=YmFsd2h3aWVmOHA1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 bg-gradient-to-br from-pink-500 to-yellow-400 rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300"
+              aria-label="Instagram"
+            >
+              <FaInstagram className="text-white text-lg" />
+            </a>
+            <p className="text-sm text-gray-400">
+              <span className="block">See product videos or order directly</span>
               <a
                 href="https://www.instagram.com/newage_versatile_studio?igsh=YmFsd2h3aWVmOHA1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-pink-500 hover:text-pink-400 text-xl"
-                title="Visit our Instagram-like page"
+                className="text-blue-400 hover:text-blue-300 underline"
               >
-                <FaInstagram />
+                Visit Instagram Page
               </a>
-              <p className="text-sm text-gray-400">
-                Want to see product videos or order directly?{" "}
-                <a
-                  href="https://www.instagram.com/newage_versatile_studio?igsh=YmFsd2h3aWVmOHA1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 underline"
-                >
-                  Check out our page!
-                </a>
-              </p>
-            </div>
+            </p>
+          </div>
         </div>
 
         {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
+          <h3 className="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2">
+            Quick Links
+          </h3>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li><Link to="/" className="hover:text-white">Home</Link></li>
-            <li><Link to="/products" className="hover:text-white">Products</Link></li>
-            <li><Link to="/offers" className="hover:text-white">Offers</Link></li>
-            <li><Link to="/customize" className="hover:text-white">Customize</Link></li>
-              
+            <li><Link to="/" className="hover:text-blue-400">Home</Link></li>
+            <li><Link to="/products" className="hover:text-blue-400">Products</Link></li>
+            <li><Link to="/offers" className="hover:text-blue-400">Offers</Link></li>
+            <li><Link to="/customize" className="hover:text-blue-400">Customize</Link></li>
           </ul>
         </div>
 
         {/* Support */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Support</h3>
+          <h3 className="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2">
+            Support
+          </h3>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li><Link to="/contact" className="hover:text-white">Contact Us</Link></li>
-            
-            <li><Link to="/cart" className="hover:text-white">Cart</Link></li>
-            <a
-            href="https://yasirhamid.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-400 font-semibold"
-          >
-            Yasir Hamid
-          </a>
+            <li><Link to="/contact" className="hover:text-blue-400">Contact Us</Link></li>
+            <li><Link to="/cart" className="hover:text-blue-400">Your Cart</Link></li>
+            <li>
+              <a
+                href="https://yasirhamid.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:text-blue-300"
+              >
+                Portfolio (Yasir Hamid)
+              </a>
+            </li>
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* Contact Info */}
         <div>
-          <h3 className="text-lg font-semibold mb-3">Contact Info</h3>
-          <p className="text-sm text-gray-400">Email: uzairmursaleen8@gmail.com</p>
-          <p className="text-sm text-gray-400">Phone: +91-9858100244</p>
-          <p className="text-sm text-gray-400">Location: Srinagar, Kashmir</p>
-          <a
-            href="https://yasirhamid.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-400 font-semibold"
-          >
-            Yasir Hamid
-          </a>
+          <h3 className="text-lg font-semibold text-white mb-4 border-b border-gray-700 pb-2">
+            Contact Info
+          </h3>
+          <p className="text-sm text-gray-400">📧 uzairmursaleen8@gmail.com</p>
+          <p className="text-sm text-gray-400">📞 +91-9858100244</p>
+          <p className="text-sm text-gray-400">📍 Srinagar, Kashmir</p>
         </div>
       </div>
 
-      <div className="border-t border-gray-700 text-center text-sm text-gray-400 py-4">
-        <p>© {new Date().getFullYear()} &trade; NewAge Versatile Studio. All rights reserved.</p>
+      {/* Bottom Bar */}
+      <div className="bg-gray-800 text-gray-400 text-center text-sm py-4 border-t border-gray-700">
+        <p>© {new Date().getFullYear()} NewAge Versatile Studio. All rights reserved.</p>
         <p className="mt-1">
-          Designed &amp; Created by{" "}
+          Designed & Created by{" "}
           <a
             href="https://yasirhamid.netlify.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-400 font-semibold"
+            className="text-blue-400 hover:text-blue-300 font-semibold"
           >
             Yasir Hamid
           </a>

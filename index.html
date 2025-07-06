@@ -1,26 +1,62 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <meta charset="UTF-8" />
-   <link rel="icon" type="image/svg+xml" href="/Logo.jpg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NewAge Versatile Studio</title>
-<meta name="description" content="Get customized Islamic frames, T-shirts, name gifts and more at NewAge Versatile Studio." />
-<meta name="keywords" content="custom gifts, Islamic art, name t-shirts, personalized frames" />
-<meta name="robots" content="index, follow" />
-<meta name="google-site-verification" content="mBMxjzsCtUwWNr1pS-drr7Lbp2kTioS5ElCFckoDr2o" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewAge Versatile Studio</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <meta name="description" content="Get customized Islamic frames, T-shirts, name gifts and more at NewAge Versatile Studio." />
+    <meta name="keywords" content="custom gifts, Islamic art, name t-shirts, personalized frames" />
+    <meta name="robots" content="index, follow" />
+    <meta name="google-site-verification" content="mBMxjzsCtUwWNr1pS-drr7Lbp2kTioS5ElCFckoDr2o" />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {},
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              truck: "truckMotion 1s linear infinite",
+              road: "roadMove 1.4s linear infinite",
+            },
+            keyframes: {
+              truckMotion: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(3px)" }
+              },
+              roadMove: {
+                "0%": { transform: "translateX(0px)" },
+                "100%": { transform: "translateX(-350px)" }
+              }
+            }
+          }
+        }
       }
-    }
-  </script>
-</head>
+    </script>
+
+    <style>
+      @keyframes truckMotion {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(3px); }
+      }
+
+      @keyframes roadMove {
+        0% { transform: translateX(0px); }
+        100% { transform: translateX(-350px); }
+      }
+
+      .animate-truck {
+        animation: truckMotion 1s linear infinite;
+      }
+
+      .animate-road {
+        animation: roadMove 1.4s linear infinite;
+      }
+    </style>
+  </head>
 
   <body>
     <div id="root"></div>

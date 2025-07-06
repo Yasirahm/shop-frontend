@@ -41,7 +41,7 @@ const Other = () => {
       <div
         className="relative w-full h-[400px] bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1600891963935-cd93f0f7cf0e?auto=format&fit=crop&w=1350&q=80')`,
+          backgroundImage: `url('https://plus.unsplash.com/premium_photo-1681807206068-2c09786c3e2b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y3VzdG9taXplZCUyMHByb2R1Y3RzfGVufDB8fDB8fHww')`,
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
