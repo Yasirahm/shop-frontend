@@ -45,8 +45,8 @@ const Cart = () => {
   };
 
   return (
-    <div className="min-h-screen px-4 py-10 bg-gray-50">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen w-screen px-4 py-10 bg-gray-50">
+      <div className="max-w-screen mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">🛒 Your Cart</h2>
 
         {cartItems.length === 0 ? (

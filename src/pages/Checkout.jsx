@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 const Checkout = () => {
   const [shippingInfo, setShippingInfo] = useState({
@@ -30,30 +30,33 @@ const Checkout = () => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
   };
 
-  const showSuccessToast = () => {
-    toast.success(
-      `✅ Order Placed Successfully!
+  const showSuccessAlert = () => {
+    Swal.fire({
+      title: "✅ Order Placed Successfully!",
+      icon: "success",
+      html: `
+        <div style="text-align: left;">
+          <p><strong>Name:</strong> ${shippingInfo.name}</p>
+          <p><strong>Email:</strong> ${shippingInfo.email}</p>
+          <p><strong>Contact:</strong> ${shippingInfo.contact}</p>
+          <p><strong>Address:</strong> ${shippingInfo.address}</p>
+          <p><strong>District:</strong> ${shippingInfo.district}</p>
+          <p><strong>Pincode:</strong> ${shippingInfo.pincode}</p>
+          <p><strong>Landmark:</strong> ${shippingInfo.landmark}</p>
+          <p><strong>Amount:</strong> ₹${amount.toFixed(2)}</p>
+          <p><strong>Payment:</strong> ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}</p>
+          <hr/>
+          <p>📸 Please take a screenshot and send it to:</p>
+          <p>📩 uzairmursaleen8@gmail.com</p>
+          <p>📞 WhatsApp: +91-9858100244</p>
+        </div>
+      `,
+      confirmButtonText: "Okay",
+    });
+  };
 
-📦 Order Details:
-👤 Name: ${shippingInfo.name}
-📧 Email: ${shippingInfo.email}
-📞 Contact: ${shippingInfo.contact}
-🏠 Address: ${shippingInfo.address}
-🏙️ District: ${shippingInfo.district}
-📍 Pincode: ${shippingInfo.pincode}
-📌 Landmark: ${shippingInfo.landmark}
-💰 Amount: ₹${amount.toFixed(2)}
-🛒 Payment: ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}
-
-📸 Please take a screenshot and send it to the admin:
-📩 Email: uzairmursaleen8@gmail.com
-📞 WhatsApp: +91-9858100244`,
-      {
-        position: "top-center",
-        autoClose: false,
-        className: "bg-white border-l-4 border-green-600 text-black whitespace-pre-wrap",
-      }
-    );
+  const showErrorAlert = (msg) => {
+    Swal.fire("❌ Error", msg, "error");
   };
 
   const handleCOD = async () => {
@@ -67,7 +70,7 @@ const Checkout = () => {
         },
       });
 
-      showSuccessToast();
+      showSuccessAlert();
       setShippingInfo({
         name: "",
         email: "",
@@ -79,7 +82,7 @@ const Checkout = () => {
       });
     } catch (err) {
       console.error("❌ COD submission failed:", err);
-      toast.error("❌ Failed to place COD order.");
+      showErrorAlert("Failed to place COD order.");
     }
   };
 
@@ -97,8 +100,6 @@ const Checkout = () => {
         description: "Online Order Payment",
         order_id: data.orderId,
         handler: async function (response) {
-          toast.success("✅ Payment successful: " + response.razorpay_payment_id);
-
           await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
             formType: "checkout",
             data: {
@@ -109,7 +110,7 @@ const Checkout = () => {
             },
           });
 
-          showSuccessToast();
+          showSuccessAlert();
 
           setShippingInfo({
             name: "",
@@ -135,20 +136,20 @@ const Checkout = () => {
       razor.open();
     } catch (err) {
       console.error("❌ Payment error:", err);
-      toast.error("❌ Payment failed.");
+      showErrorAlert("Payment failed.");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!/^[0-9]{10}$/.test(shippingInfo.contact)) {
-      return toast.warn("📱 Contact number must be 10 digits.");
+      return showErrorAlert("📱 Contact number must be 10 digits.");
     }
     if (paymentMethod === "cod") handleCOD();
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 py-10 flex justify-center">
+    <div className="min-h-screen bg-gray-100 px-4 w-screen py-10 flex justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-lg p-8 w-full max-w-xl"
@@ -175,7 +176,6 @@ const Checkout = () => {
           )
         )}
 
-        {/* Payment Method Selection */}
         <div className="mb-6">
           <label className="block font-medium text-gray-700 mb-2">Select Payment Method</label>
           <div className="space-y-2">
@@ -204,7 +204,6 @@ const Checkout = () => {
           </div>
         </div>
 
-        {/* Total */}
         <div className="mt-6 text-lg font-semibold text-center text-gray-800">
           Total Payable Amount: ₹{amount.toFixed(2)}
         </div>

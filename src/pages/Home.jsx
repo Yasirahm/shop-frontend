@@ -6,13 +6,14 @@ import Other from "./Other";
 import Products from "./Products";
 import Service from "./Service";
 import "../App"
+import DownloadApp from "./DownloadApp";
 
 const Home = () => {
   return (
     <div className="bg-white">
       
       {/* ✅ Hero Image Banner */}
-      <section className="w-full">
+      <section className="w-screen">
         <img
           src={heroImage}
           alt="NewAge Banner"
@@ -177,6 +178,7 @@ const Home = () => {
       <Service />
       <Other />
       <Customize />
+      <DownloadApp/>
       <WhatsappButton />
       <CallbackPopup />
     </div>

@@ -96,7 +96,7 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 px-6 py-10">
+    <div className="min-h-screen w-screen bg-gray-100 px-6 py-10">
       <ToastContainer />
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">🛍 All Products</h1>
 
