@@ -1,89 +1,61 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Login from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
-import AdminPanel from "./pages/AdminPanel";
-import AdminLogin from "./pages/AdminLogin";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import Home from "./pages/Home";
+import Offers from "./pages/Offers";
+import Contact from "./pages/Contact";
+import Customize from "./pages/Customize";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import Navbar from "./components/Navbar";
-import AdminInquiries from "./pages/AdminInquiries";
-import Inquiry from "./pages/Inquiry";
-import ZakatCalculator from "./pages/ZakatCalculator";
-import AdminAnnouncements from "./pages/AdminAnnouncements";
-import Announcements from "./pages/Announcements";
-import Donate from "./pages/Donate";
-import AdminDonations from "./pages/AdminDonations";
 import Footer from "./components/Footer";
-import ProtectedAdminRoute from "./components/ProtectedAdminRoute"; // ✅ Import guard
+import Products from "./pages/Products";
+import AdminLogin from "./pages/AdminLogin";
+import AdminPanel from "./pages/AdminPanel";
+import WhatsappButton from "./components/WhatsappButton";
+import AddOffer from "./pages/AddOffer";
+import { NotFoundPage } from "./pages/Error";
+import ThankYou from "./pages/ThankYou";
+ // Adjust path if needed
+ import ScrollToTop from "./components/ScrollToTop";
 
-function AppWrapper() {
-  const location = useLocation();
-  const [showNavbar, setShowNavbar] = useState(false);
-
-  useEffect(() => {
-    // Show navbar only on selected pages
-    const visibleRoutes = ["/dashboard", "/admin"];
-    setShowNavbar(visibleRoutes.includes(location.pathname));
-  }, [location.pathname]);
-
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        {/* Public routes */}
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<UserDashboard />} />
-        <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/inquiry" element={<Inquiry />} />
-        <Route path="/zakat-calculator" element={<ZakatCalculator />} />
-        <Route path="/announcements" element={<Announcements />} />
-        <Route path="/donate" element={<Donate />} />
-
-        {/* 🔒 Protected admin routes */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedAdminRoute>
-              <AdminPanel />
-            </ProtectedAdminRoute>
-          }
-        />
-        <Route
-          path="/admin/inquiries"
-          element={
-            <ProtectedAdminRoute>
-              <AdminInquiries />
-            </ProtectedAdminRoute>
-          }
-        />
-        <Route
-          path="/admin/announcements"
-          element={
-            <ProtectedAdminRoute>
-              <AdminAnnouncements />
-            </ProtectedAdminRoute>
-          }
-        />
-        <Route
-          path="/admin/donations"
-          element={
-            <ProtectedAdminRoute>
-              <AdminDonations />
-            </ProtectedAdminRoute>
-          }
-        />
-      </Routes>
-     
-    </>
-  );
-}
+axios.defaults.withCredentials = true;
 
 function App() {
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
+
   return (
     <BrowserRouter>
-      <AppWrapper />
+      <Navbar />
+      <ScrollToTop />
+      <Routes>
+        <Route path="*" element={<NotFoundPage />} />
+
+        <Route path="/" element={<Home />} />
+        <Route path="/offers" element={<Offers />} />
+        <Route path="/admin/add-offer" element={<AddOffer />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/customize" element={<Customize />} />
+        <Route path="/whatsapp" element={<WhatsappButton />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/thank-you" element={<ThankYou />} />
+
+
+        {/* 🔐 Admin Panel Protection */}
+        <Route
+          path="/admin-panel22250040"
+          element={isAdmin ? <AdminPanel /> : <Navigate to="/admin-login" replace />}
+        />
+      </Routes>
+      <ToastContainer position="top-center" autoClose={9000} />
+      <Footer />
     </BrowserRouter>
   );
 }
 
 export default App;
- 
