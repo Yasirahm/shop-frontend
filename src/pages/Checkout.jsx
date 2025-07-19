@@ -1,3 +1,4 @@
+// Checkout.jsx
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -15,15 +16,20 @@ const Checkout = () => {
     landmark: "",
   });
 
-  const [amount, setAmount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [gst, setGst] = useState(0);
+  const [amount, setAmount] = useState(0); // amount with GST
 
   useEffect(() => {
     const storedTotal = localStorage.getItem("cartTotal");
     const total = storedTotal ? parseFloat(storedTotal) : 0;
     setCartTotal(total);
-    const finalAmount = paymentMethod === "online" ? total - 6 : total;
+
+    const gstAmount = parseFloat((total * 0.01).toFixed(2));
+    const finalAmount = parseFloat((total + gstAmount).toFixed(2));
+
+    setGst(gstAmount);
     setAmount(finalAmount);
   }, [paymentMethod]);
 
@@ -44,7 +50,7 @@ const Checkout = () => {
           <p><strong>District:</strong> ${shippingInfo.district}</p>
           <p><strong>Pincode:</strong> ${shippingInfo.pincode}</p>
           <p><strong>Landmark:</strong> ${shippingInfo.landmark}</p>
-          <p><strong>Amount:</strong> ₹${amount.toFixed(2)}</p>
+          <p><strong>Amount (incl. 1% GST):</strong> ₹${amount.toFixed(2)}</p>
           <p><strong>Payment:</strong> ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}</p>
           <hr/>
           <p>📸 Please take a screenshot and send it to:</p>
@@ -60,33 +66,28 @@ const Checkout = () => {
     Swal.fire("❌ Error", msg, "error");
   };
 
- const sendEmail = () => {
-  const templateParams = {
-    name: shippingInfo.name,
-    email: shippingInfo.email,
-    contact: shippingInfo.contact,
-    address: shippingInfo.address,
-    district: shippingInfo.district,
-    pincode: shippingInfo.pincode,
-    landmark: shippingInfo.landmark,
-    amount: amount.toFixed(2),
-    paymentMethod: paymentMethod === "online" ? "Online Payment" : "Cash on Delivery",
-    admin_email: "uzairmursaleen8@gmail.com",
-    to_email: `${shippingInfo.email}, uzairmursaleen8@gmail.com` // ✅ ADD THIS
+  const sendEmail = () => {
+    const templateParams = {
+      name: shippingInfo.name,
+      email: shippingInfo.email,
+      contact: shippingInfo.contact,
+      address: shippingInfo.address,
+      district: shippingInfo.district,
+      pincode: shippingInfo.pincode,
+      landmark: shippingInfo.landmark,
+      amount: amount.toFixed(2),
+      paymentMethod: paymentMethod === "online" ? "Online Payment" : "Cash on Delivery",
+      admin_email: "uzairmursaleen8@gmail.com",
+      to_email: `${shippingInfo.email}, uzairmursaleen8@gmail.com`,
+    };
+
+    emailjs
+      .send("service_z6hmua4", "template_uw14p0k", templateParams, "IXVT9qvmERZ6nzyVN")
+      .then(
+        (result) => console.log("📧 Email sent:", result.text),
+        (error) => console.error("❌ Email failed:", error.text)
+      );
   };
-
-  emailjs
-    .send("service_z6hmua4", "template_uw14p0k", templateParams, "IXVT9qvmERZ6nzyVN")
-    .then(
-      (result) => {
-        console.log("📧 Email sent successfully:", result.text);
-      },
-      (error) => {
-        console.error("❌ Failed to send email:", error.text);
-      }
-    );
-};
-
 
   const handleCOD = async () => {
     try {
@@ -124,7 +125,7 @@ const Checkout = () => {
       });
 
       const options = {
-        key: "rzp_live_c4uFpJDvKhra3y",
+        key: "rzp_live_L2IYg6rIX1anLD",
         amount: data.amount,
         currency: data.currency,
         name: "Newageversatilestudio",
@@ -223,7 +224,7 @@ const Checkout = () => {
                 onChange={() => setPaymentMethod("cod")}
                 className="mr-2"
               />
-              Cash on Delivery (₹{cartTotal})
+              Cash on Delivery (Incl. ₹{gst.toFixed(2)} GST)
             </label>
             <label className="flex text-blue-700 items-center">
               <input
@@ -234,13 +235,13 @@ const Checkout = () => {
                 onChange={() => setPaymentMethod("online")}
                 className="mr-2"
               />
-              Pay Online (₹{cartTotal - 6} with ₹6 discount)
+              Pay Online (Incl. ₹{gst.toFixed(2)} GST)
             </label>
           </div>
         </div>
 
         <div className="mt-6 text-lg font-semibold text-center text-gray-800">
-          Total Payable Amount: ₹{amount.toFixed(2)}
+          Total Payable Amount (incl. GST): ₹{amount.toFixed(2)}
         </div>
 
         {paymentMethod === "online" ? (
