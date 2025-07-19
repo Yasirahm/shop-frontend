@@ -49,33 +49,32 @@ const services = [
 
 const Service = () => {
   return (
-    <div className="py-16 px-4 md:px-20 bg-gray-50">
-  <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
-    Our <span className="text-blue-600">Services</span>
-  </h2>
+    <div className="py-16 px-4 sm:px-6 md:px-10 lg:px-20 bg-gray-50">
+      <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-12">
+        Our <span className="text-blue-600">Services</span>
+      </h2>
 
-  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {services.map((service, idx) => (
-      <div
-        key={idx}
-        className="relative group w-[190px] h-[254px] mx-auto flex items-center justify-center overflow-hidden rounded-2xl bg-[#07182E] text-white shadow-xl"
-      >
-        <div className="absolute inset-0 before:absolute before:w-[100px] before:h-[130%] before:bg-gradient-to-b before:from-cyan-400 before:to-fuchsia-500 before:animate-spin before:scale-150 before:content-[''] before:transition-all before:duration-200 before:z-0" />
+      <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {services.map((service, idx) => (
+          <div
+            key={idx}
+            className="relative group w-full h-[270px] flex items-center justify-center overflow-hidden rounded-2xl bg-[#07182E] text-white shadow-xl mx-auto"
+          >
+            <div className="absolute inset-0 before:absolute before:w-[100px] before:h-[130%] before:bg-gradient-to-b before:from-cyan-400 before:to-fuchsia-500 before:animate-spin before:scale-150 before:content-[''] before:transition-all before:duration-200 before:z-0" />
 
-        <div className="absolute inset-[5px] bg-[#07182E] rounded-[15px] z-10 flex flex-col items-center text-center px-4 py-3">
-          <img
-            src={service.image}
-            alt={service.title}
-            className="h-20 w-20 object-cover rounded-md mb-3"
-          />
-          <h3 className="text-lg font-semibold mb-1">{service.title}</h3>
-          <p className="text-xs text-gray-300">{service.description}</p>
-        </div>
+            <div className="absolute inset-[5px] bg-[#07182E] rounded-[15px] z-10 flex flex-col items-center text-center px-4 py-3">
+              <img
+                src={service.image}
+                alt={service.title}
+                className="h-20 w-20 object-cover rounded-md mb-3"
+              />
+              <h3 className="text-lg font-semibold mb-1">{service.title}</h3>
+              <p className="text-xs text-gray-300">{service.description}</p>
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-</div>
-
+    </div>
   );
 };
 

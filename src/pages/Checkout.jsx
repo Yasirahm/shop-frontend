@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import emailjs from "@emailjs/browser";
 
 const Checkout = () => {
   const [shippingInfo, setShippingInfo] = useState({
@@ -59,6 +60,34 @@ const Checkout = () => {
     Swal.fire("❌ Error", msg, "error");
   };
 
+ const sendEmail = () => {
+  const templateParams = {
+    name: shippingInfo.name,
+    email: shippingInfo.email,
+    contact: shippingInfo.contact,
+    address: shippingInfo.address,
+    district: shippingInfo.district,
+    pincode: shippingInfo.pincode,
+    landmark: shippingInfo.landmark,
+    amount: amount.toFixed(2),
+    paymentMethod: paymentMethod === "online" ? "Online Payment" : "Cash on Delivery",
+    admin_email: "ratherseenu16@gmail.com",
+    to_email: `${shippingInfo.email}, ratherseenu16@gmail.com` // ✅ ADD THIS
+  };
+
+  emailjs
+    .send("service_z6hmua4", "template_uw14p0k", templateParams, "IXVT9qvmERZ6nzyVN")
+    .then(
+      (result) => {
+        console.log("📧 Email sent successfully:", result.text);
+      },
+      (error) => {
+        console.error("❌ Failed to send email:", error.text);
+      }
+    );
+};
+
+
   const handleCOD = async () => {
     try {
       await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
@@ -71,6 +100,8 @@ const Checkout = () => {
       });
 
       showSuccessAlert();
+      sendEmail();
+
       setShippingInfo({
         name: "",
         email: "",
@@ -111,6 +142,7 @@ const Checkout = () => {
           });
 
           showSuccessAlert();
+          sendEmail();
 
           setShippingInfo({
             name: "",
@@ -145,7 +177,10 @@ const Checkout = () => {
     if (!/^[0-9]{10}$/.test(shippingInfo.contact)) {
       return showErrorAlert("📱 Contact number must be 10 digits.");
     }
-    if (paymentMethod === "cod") handleCOD();
+
+    if (paymentMethod === "cod") {
+      handleCOD();
+    }
   };
 
   return (
