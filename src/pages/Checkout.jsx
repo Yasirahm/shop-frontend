@@ -71,8 +71,8 @@ const Checkout = () => {
     landmark: shippingInfo.landmark,
     amount: amount.toFixed(2),
     paymentMethod: paymentMethod === "online" ? "Online Payment" : "Cash on Delivery",
-    admin_email: "ratherseenu16@gmail.com",
-    to_email: `${shippingInfo.email}, ratherseenu16@gmail.com` // ✅ ADD THIS
+    admin_email: "uzairmursaleen8@gmail.com",
+    to_email: `${shippingInfo.email}, uzairmursaleen8@gmail.com` // ✅ ADD THIS
   };
 
   emailjs
