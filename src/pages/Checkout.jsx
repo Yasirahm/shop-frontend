@@ -49,20 +49,29 @@ const Checkout = () => {
     emailjs
       .send("service_z6hmua4", "template_uw14p0k", templateParams, "IXVT9qvmERZ6nzyVN")
       .then(
-        (result) => {
-          console.log("📧 Email sent:", result.text);
-          toast.success("📧 Confirmation email sent.");
-        },
-        (error) => {
-          console.error("❌ Email failed:", error.text);
-          toast.error("❌ Failed to send confirmation email.");
-        }
+        (result) => console.log("📧 Email sent:", result.text),
+        (error) => console.error("❌ Email failed:", error.text)
       );
   };
 
   const showSuccessToast = () => {
     toast.success(
-      `✅ Order Placed Successfully!\n\n📦 Order Details:\n👤 Name: ${shippingInfo.name}\n📧 Email: ${shippingInfo.email}\n📞 Contact: ${shippingInfo.contact}\n🏠 Address: ${shippingInfo.address}\n🏙️ District: ${shippingInfo.district}\n📍 Pincode: ${shippingInfo.pincode}\n📌 Landmark: ${shippingInfo.landmark}\n💰 Amount: ₹${amount.toFixed(2)}\n🛒 Payment: ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}\n\n📸 Please take a screenshot and send it to the admin:\n📩 Email: uzairmursaleen8@gmail.com\n📞 WhatsApp: +91-9858100244`,
+      `✅ Order Placed Successfully!
+
+📦 Order Details:
+👤 Name: ${shippingInfo.name}
+📧 Email: ${shippingInfo.email}
+📞 Contact: ${shippingInfo.contact}
+🏠 Address: ${shippingInfo.address}
+🏙️ District: ${shippingInfo.district}
+📍 Pincode: ${shippingInfo.pincode}
+📌 Landmark: ${shippingInfo.landmark}
+💰 Amount: ₹${amount.toFixed(2)}
+🛒 Payment: ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}
+
+📸 Please take a screenshot and send it to the admin:
+📩 Email: uzairmursaleen8@gmail.com
+📞 WhatsApp: +91-9858100244`,
       {
         position: "top-center",
         autoClose: false,
@@ -102,16 +111,16 @@ const Checkout = () => {
   const handleOnlinePayment = async () => {
     try {
       const { data } = await axios.post("https://shop-backend-1-4ypi.onrender.com/api/payment/create-order", {
-        amount: Number(amount),
+        amount,
       });
 
       const options = {
         key: "rzp_live_c4uFpJDvKhra3y",
-        amount: data.order.amount,
-        currency: data.order.currency,
+        amount: data.amount,
+        currency: data.currency,
         name: "Newageversatilestudio",
         description: "Online Order Payment",
-        order_id: data.order.id,
+        order_id: data.orderId,
         handler: async function (response) {
           toast.success("✅ Payment successful: " + response.razorpay_payment_id);
 
@@ -151,7 +160,7 @@ const Checkout = () => {
       const razor = new window.Razorpay(options);
       razor.open();
     } catch (err) {
-      console.error("❌ Payment error:", err.response?.data || err.message);
+      console.error("❌ Payment error:", err);
       toast.error("❌ Payment failed.");
     }
   };
@@ -162,7 +171,6 @@ const Checkout = () => {
       return toast.warn("📱 Contact number must be 10 digits.");
     }
     if (paymentMethod === "cod") handleCOD();
-    else handleOnlinePayment(); // added this to handle online submission on form submit too
   };
 
   return (
@@ -225,12 +233,22 @@ const Checkout = () => {
           Total Payable Amount: ₹{amount.toFixed(2)}
         </div>
 
-        <button
-          type="submit"
-          className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-        >
-          {paymentMethod === "online" ? "Pay Now" : "Place COD Order"}
-        </button>
+        {paymentMethod === "online" ? (
+          <button
+            type="button"
+            onClick={handleOnlinePayment}
+            className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          >
+            Pay with Razorpay
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+          >
+            Place COD Order
+          </button>
+        )}
       </form>
     </div>
   );
