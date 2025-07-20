@@ -125,7 +125,7 @@ const Checkout = () => {
       });
 
       const options = {
-        key: "rzp_live_L2IYg6rIX1anLD",
+        key: "rzp_live_c4uFpJDvKhra3y",
         amount: data.amount,
         currency: data.currency,
         name: "Newageversatilestudio",
