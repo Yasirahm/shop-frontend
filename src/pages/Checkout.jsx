@@ -1,9 +1,8 @@
-// Checkout.jsx
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.min.css";
+import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
+import "react-toastify/dist/ReactToastify.css";
 
 const Checkout = () => {
   const [shippingInfo, setShippingInfo] = useState({
@@ -16,54 +15,20 @@ const Checkout = () => {
     landmark: "",
   });
 
+  const [amount, setAmount] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("cod");
-  const [gst, setGst] = useState(0);
-  const [amount, setAmount] = useState(0); // amount with GST
 
   useEffect(() => {
     const storedTotal = localStorage.getItem("cartTotal");
     const total = storedTotal ? parseFloat(storedTotal) : 0;
     setCartTotal(total);
-
-    const gstAmount = parseFloat((total * 0.01).toFixed(2));
-    const finalAmount = parseFloat((total + gstAmount).toFixed(2));
-
-    setGst(gstAmount);
+    const finalAmount = paymentMethod === "online" ? total - 6 : total;
     setAmount(finalAmount);
   }, [paymentMethod]);
 
   const handleChange = (e) => {
     setShippingInfo({ ...shippingInfo, [e.target.name]: e.target.value });
-  };
-
-  const showSuccessAlert = () => {
-    Swal.fire({
-      title: "✅ Order Placed Successfully!",
-      icon: "success",
-      html: `
-        <div style="text-align: left;">
-          <p><strong>Name:</strong> ${shippingInfo.name}</p>
-          <p><strong>Email:</strong> ${shippingInfo.email}</p>
-          <p><strong>Contact:</strong> ${shippingInfo.contact}</p>
-          <p><strong>Address:</strong> ${shippingInfo.address}</p>
-          <p><strong>District:</strong> ${shippingInfo.district}</p>
-          <p><strong>Pincode:</strong> ${shippingInfo.pincode}</p>
-          <p><strong>Landmark:</strong> ${shippingInfo.landmark}</p>
-          <p><strong>Amount (incl. 1% GST):</strong> ₹${amount.toFixed(2)}</p>
-          <p><strong>Payment:</strong> ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}</p>
-          <hr/>
-          <p>📸 Please take a screenshot and send it to:</p>
-          <p>📩 uzairmursaleen8@gmail.com</p>
-          <p>📞 WhatsApp: +91-9858100244</p>
-        </div>
-      `,
-      confirmButtonText: "Okay",
-    });
-  };
-
-  const showErrorAlert = (msg) => {
-    Swal.fire("❌ Error", msg, "error");
   };
 
   const sendEmail = () => {
@@ -89,6 +54,32 @@ const Checkout = () => {
       );
   };
 
+  const showSuccessToast = () => {
+    toast.success(
+      `✅ Order Placed Successfully!
+
+📦 Order Details:
+👤 Name: ${shippingInfo.name}
+📧 Email: ${shippingInfo.email}
+📞 Contact: ${shippingInfo.contact}
+🏠 Address: ${shippingInfo.address}
+🏙️ District: ${shippingInfo.district}
+📍 Pincode: ${shippingInfo.pincode}
+📌 Landmark: ${shippingInfo.landmark}
+💰 Amount: ₹${amount.toFixed(2)}
+🛒 Payment: ${paymentMethod === "online" ? "Online Payment" : "Cash on Delivery"}
+
+📸 Please take a screenshot and send it to the admin:
+📩 Email: uzairmursaleen8@gmail.com
+📞 WhatsApp: +91-9858100244`,
+      {
+        position: "top-center",
+        autoClose: false,
+        className: "bg-white border-l-4 border-green-600 text-black whitespace-pre-wrap",
+      }
+    );
+  };
+
   const handleCOD = async () => {
     try {
       await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
@@ -100,9 +91,8 @@ const Checkout = () => {
         },
       });
 
-      showSuccessAlert();
       sendEmail();
-
+      showSuccessToast();
       setShippingInfo({
         name: "",
         email: "",
@@ -114,7 +104,7 @@ const Checkout = () => {
       });
     } catch (err) {
       console.error("❌ COD submission failed:", err);
-      showErrorAlert("Failed to place COD order.");
+      toast.error("❌ Failed to place COD order.");
     }
   };
 
@@ -125,13 +115,15 @@ const Checkout = () => {
       });
 
       const options = {
-        key: "rzp_live_c4uFpJDvKhra3y",
+        key: "rzp_live_L2IYg6rIX1anLD",
         amount: data.amount,
         currency: data.currency,
         name: "Newageversatilestudio",
         description: "Online Order Payment",
         order_id: data.orderId,
         handler: async function (response) {
+          toast.success("✅ Payment successful: " + response.razorpay_payment_id);
+
           await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
             formType: "checkout",
             data: {
@@ -142,8 +134,8 @@ const Checkout = () => {
             },
           });
 
-          showSuccessAlert();
           sendEmail();
+          showSuccessToast();
 
           setShippingInfo({
             name: "",
@@ -169,23 +161,20 @@ const Checkout = () => {
       razor.open();
     } catch (err) {
       console.error("❌ Payment error:", err);
-      showErrorAlert("Payment failed.");
+      toast.error("❌ Payment failed.");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!/^[0-9]{10}$/.test(shippingInfo.contact)) {
-      return showErrorAlert("📱 Contact number must be 10 digits.");
+      return toast.warn("📱 Contact number must be 10 digits.");
     }
-
-    if (paymentMethod === "cod") {
-      handleCOD();
-    }
+    if (paymentMethod === "cod") handleCOD();
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 w-screen py-10 flex justify-center">
+    <div className="min-h-screen bg-gray-100 px-4 py-10 flex justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-lg p-8 w-full max-w-xl"
@@ -224,7 +213,7 @@ const Checkout = () => {
                 onChange={() => setPaymentMethod("cod")}
                 className="mr-2"
               />
-              Cash on Delivery (Incl. ₹{gst.toFixed(2)} GST)
+              Cash on Delivery (₹{cartTotal.toFixed(2)})
             </label>
             <label className="flex text-blue-700 items-center">
               <input
@@ -235,13 +224,13 @@ const Checkout = () => {
                 onChange={() => setPaymentMethod("online")}
                 className="mr-2"
               />
-              Pay Online (Incl. ₹{gst.toFixed(2)} GST)
+              Pay Online (₹{(cartTotal - 6).toFixed(2)} with ₹6 discount)
             </label>
           </div>
         </div>
 
         <div className="mt-6 text-lg font-semibold text-center text-gray-800">
-          Total Payable Amount (incl. GST): ₹{amount.toFixed(2)}
+          Total Payable Amount: ₹{amount.toFixed(2)}
         </div>
 
         {paymentMethod === "online" ? (
