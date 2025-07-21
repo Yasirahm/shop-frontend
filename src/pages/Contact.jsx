@@ -17,7 +17,7 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
+      await axios.post("https://shop-backend-45ip.onrender.com/api/forms/submit", {
         formType: "contact",
         data: form,
       });

@@ -94,7 +94,7 @@ const Checkout = () => {
 
   const handleCOD = async () => {
     try {
-      await axios.post("http://localhost:5000/api/forms/submit", {
+      await axios.post("https://shop-backend-45ip.onrender.com/api/forms/submit", {
         formType: "checkout",
         data: {
           ...shippingInfo,
@@ -114,7 +114,7 @@ const Checkout = () => {
 
   const handleOnlinePayment = async () => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/payment/create-order", {
+      const { data } = await axios.post("https://shop-backend-45ip.onrender.com/api/payment/create-order", {
         amount,
       });
 
@@ -129,7 +129,7 @@ const Checkout = () => {
           try {
             toast.success("✅ Payment successful: " + response.razorpay_payment_id);
 
-            await axios.post("http://localhost:5000/api/forms/submit", {
+            await axios.post("https://shop-backend-45ip.onrender.com/api/forms/submit", {
               formType: "checkout",
               data: {
                 ...shippingInfo,
