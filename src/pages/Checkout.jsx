@@ -80,9 +80,21 @@ const Checkout = () => {
     );
   };
 
+  const resetForm = () => {
+    setShippingInfo({
+      name: "",
+      email: "",
+      contact: "",
+      address: "",
+      district: "",
+      pincode: "",
+      landmark: "",
+    });
+  };
+
   const handleCOD = async () => {
     try {
-      await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
+      await axios.post("http://localhost:5000/api/forms/submit", {
         formType: "checkout",
         data: {
           ...shippingInfo,
@@ -93,15 +105,7 @@ const Checkout = () => {
 
       sendEmail();
       showSuccessToast();
-      setShippingInfo({
-        name: "",
-        email: "",
-        contact: "",
-        address: "",
-        district: "",
-        pincode: "",
-        landmark: "",
-      });
+      resetForm();
     } catch (err) {
       console.error("❌ COD submission failed:", err);
       toast.error("❌ Failed to place COD order.");
@@ -110,42 +114,38 @@ const Checkout = () => {
 
   const handleOnlinePayment = async () => {
     try {
-      const { data } = await axios.post("https://shop-backend-1-4ypi.onrender.com/api/payment/create-order", {
+      const { data } = await axios.post("http://localhost:5000/api/payment/create-order", {
         amount,
       });
 
       const options = {
-        key: "rzp_live_c4uFpJDvKhra3y",
+        key: "rzp_live_L2IYg6rIX1anLD",
         amount: data.amount,
         currency: data.currency,
         name: "Newageversatilestudio",
         description: "Online Order Payment",
         order_id: data.orderId,
         handler: async function (response) {
-          toast.success("✅ Payment successful: " + response.razorpay_payment_id);
+          try {
+            toast.success("✅ Payment successful: " + response.razorpay_payment_id);
 
-          await axios.post("https://shop-backend-1-4ypi.onrender.com/api/forms/submit", {
-            formType: "checkout",
-            data: {
-              ...shippingInfo,
-              razorpayPaymentId: response.razorpay_payment_id,
-              paymentMethod: "Online Payment",
-              amount,
-            },
-          });
+            await axios.post("http://localhost:5000/api/forms/submit", {
+              formType: "checkout",
+              data: {
+                ...shippingInfo,
+                razorpayPaymentId: response.razorpay_payment_id,
+                paymentMethod: "Online Payment",
+                amount,
+              },
+            });
 
-          sendEmail();
-          showSuccessToast();
-
-          setShippingInfo({
-            name: "",
-            email: "",
-            contact: "",
-            address: "",
-            district: "",
-            pincode: "",
-            landmark: "",
-          });
+            sendEmail();
+            showSuccessToast();
+            resetForm();
+          } catch (submitError) {
+            console.error("❌ Error saving order after payment:", submitError);
+            toast.error("❌ Failed to complete the order after payment.");
+          }
         },
         prefill: {
           name: shippingInfo.name,
@@ -174,7 +174,7 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 px-4 py-10 flex justify-center">
+    <div className="min-h-screen w-screen bg-gray-100 px-4 py-10 flex justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-lg p-8 w-full max-w-xl"
