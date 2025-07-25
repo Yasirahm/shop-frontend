@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaInstagram } from "react-icons/fa";
+import AdBanner from "./AdBanner";
 
 const Footer = () => {
   return (
@@ -100,6 +101,7 @@ const Footer = () => {
           </a>
         </p>
       </div>
+      <AdBanner />
     </footer>
   );
 };
