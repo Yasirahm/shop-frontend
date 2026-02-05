@@ -26,27 +26,27 @@ const services = [
   },
   {
   title: "Flex Printing",
-  image: "https://cdn.pixabay.com/photo/2017/08/30/07/52/banner-2693345_1280.jpg",
+  image: "https://media.istockphoto.com/id/1827594466/photo/close-up-hand-of-woman-pull-a-qr-code-sticker-from-a-barcode-printer.webp?a=1&b=1&s=612x612&w=0&k=20&c=RFQTw5mUYVr1221BTWEtU9xUAB5HvHWyNj13NHps5zw=",
   description: "High-quality flex printing for shops, events, hoardings, and outdoor branding."
 },
 {
   title: "Visiting Cards",
-  image: "https://cdn.pixabay.com/photo/2016/11/29/09/08/business-cards-1867751_1280.jpg",
+  image: "https://images.unsplash.com/photo-1576603009048-c25adc3d62e6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHZpc2l0aW5nJTIwY2FyZHN8ZW58MHx8MHx8fDA%3D",
   description: "Professional visiting cards with premium finish and custom designs."
 },
 {
   title: "Vinyl Printing",
-  image: "https://cdn.pixabay.com/photo/2018/01/15/07/51/vinyl-3086391_1280.jpg",
+  image: "https://plus.unsplash.com/premium_photo-1682145497679-e9340895df09?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dmlueWwlMjBwcmludGluZ3xlbnwwfHwwfHx8MA%3D%3D",
   description: "Durable vinyl printing for walls, glass branding, and outdoor applications."
 },
 {
   title: "Wedding Cards",
-  image: "https://cdn.pixabay.com/photo/2017/08/01/00/52/wedding-invitation-2561761_1280.jpg",
+  image: "https://images.unsplash.com/photo-1661200523492-45dbe7a22e55?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2VkZGluZyUyMGNhcmRzfGVufDB8fDB8fHww",
   description: "Elegant wedding cards with custom themes, colors, and premium paper quality."
 },
 {
   title: "Poster Printing",
-  image: "https://cdn.pixabay.com/photo/2016/11/19/14/00/poster-1839495_1280.jpg",
+  image: "https://plus.unsplash.com/premium_photo-1682145489846-081721a9b272?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cG9zdGVyJTIwcHJpbnRpbmd8ZW58MHx8MHx8fDA%3D",
   description: "High-resolution poster printing for promotions, events, and advertisements."
 },
 {
