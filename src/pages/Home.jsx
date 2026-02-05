@@ -176,7 +176,7 @@ const Home = () => {
 
       {/* Extra Sections */}
       <Service />
-      <Other />
+      
       <Customize />
       <DownloadApp/>
       <WhatsappButton />

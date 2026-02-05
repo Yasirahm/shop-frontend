@@ -31,7 +31,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center items-start py-12 px-4">
+    <div className="min-h-screen w-screen bg-gray-50 flex justify-center items-start py-12 px-4">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-xl p-8 max-w-md w-full"
