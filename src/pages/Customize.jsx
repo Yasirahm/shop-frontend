@@ -56,7 +56,7 @@ Our team will get in touch within 48 hours to discuss the details.
         className="w-full max-w-2xl bg-white/60 backdrop-blur-md rounded-xl shadow-2xl p-6 sm:p-10 border border-blue-200"
       >
         <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-6 tracking-tight">
-          ✨ Customize Your Product
+           Customize Your Product
         </h2>
 
         <div className="grid  gap-6 sm:grid-cols-2">
@@ -116,7 +116,7 @@ Our team will get in touch within 48 hours to discuss the details.
           type="submit"
           className="mt-6 w-full bg-white hover:bg-blue-50 text-blue-700 hover:text-blue-900 font-semibold py-3 rounded-md shadow-xl border border-blue-300 hover:border-blue-500 transition-all duration-300"
         >
-          🚀 Submit Customization Request
+           Submit Customization Request
         </button>
       </form>
     </div>

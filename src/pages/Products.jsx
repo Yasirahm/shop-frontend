@@ -115,71 +115,7 @@ const Products = () => {
         />
       </div>
 
-      {/* ✅ Filter Section */}
-      <div className="bg-white p-6 rounded-lg shadow mb-10">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">Filter Products</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-600">
-          <select
-            className="border p-2 rounded bg-white"
-            value={filters.discountRange}
-            onChange={(e) => {
-              setFilters({ ...filters, discountRange: e.target.value });
-              setVisibleCount(6); // reset on filter
-            }}
-          >
-            <option value="">All Discounts</option>
-            <option value="0-100">₹0 - ₹100 OFF</option>
-            <option value="101-300">₹101 - ₹300 OFF</option>
-            <option value="301+">₹301+ OFF</option>
-          </select>
 
-          <input
-            type="number"
-            placeholder="Min Price"
-            className="border p-2 rounded bg-white"
-            value={filters.minPrice}
-            onChange={(e) => {
-              setFilters({ ...filters, minPrice: e.target.value });
-              setVisibleCount(6); // reset on filter
-            }}
-          />
-
-          <input
-            type="number"
-            placeholder="Max Price"
-            className="border p-2 rounded bg-white"
-            value={filters.maxPrice}
-            onChange={(e) => {
-              setFilters({ ...filters, maxPrice: e.target.value });
-              setVisibleCount(6); // reset on filter
-            }}
-          />
-
-          <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={filters.isNew}
-              onChange={(e) => {
-                setFilters({ ...filters, isNew: e.target.checked });
-                setVisibleCount(6); // reset on filter
-              }}
-            />
-            <span className="font-semibold">New Only</span>
-          </label>
-
-          <label className="flex items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={filters.discountOnly}
-              onChange={(e) => {
-                setFilters({ ...filters, discountOnly: e.target.checked });
-                setVisibleCount(6); // reset on filter
-              }}
-            />
-            <span className="font-semibold">Discounted Only</span>
-          </label>
-        </div>
-      </div>
 
       {/* 🚚 Product Grid or Loader */}
       {filteredProducts.length === 0 ? (

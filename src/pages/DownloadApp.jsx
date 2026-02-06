@@ -3,7 +3,7 @@ import React from 'react';
 export default function DownloadApp() {
   return (
     <div className="text-center p-8 bg-white min-h-200px">
-      <h1 className="text-3xl font-bold text-black mb-4">📱 Download Our App</h1>
+      <h1 className="text-3xl font-bold text-black mb-4"> Download Our App</h1>
       <p className="text-lg text-black mb-6">
         Experience NewAge Versatile Studio on your Android device.
       </p>

@@ -50,10 +50,36 @@ const services = [
   description: "High-resolution poster printing for promotions, events, and advertisements."
 },
 {
-  title: "Ivision Printing",
-  image: "https://cdn.pixabay.com/photo/2017/01/20/00/30/display-1997559_1280.jpg",
-  description: "Premium Ivision printing with glossy finish for high-impact visual displays."
+  title: "One-Way Vision Printing",
+  image: "https://media.istockphoto.com/id/2207661486/photo/caution-railroad-intersection-ahead.webp?a=1&b=1&s=612x612&w=0&k=20&c=C_TNNI6QkjCtekxhFlF-Aw8LrO7oYuTWOrJMy0PKUh4=",
+  description: "One-way vision printing for glass branding, privacy, and outdoor advertisements."
+},
+{
+  title: "Neon Lights",
+  image: "https://plus.unsplash.com/premium_photo-1675278299431-ed806c529207?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bmVvbiUyMGxpZ2h0c3xlbnwwfHwwfHx8MA%3D%3D",
+  description: "Custom neon light signs for shops, homes, cafes, and branding purposes."
+},
+{
+  title: "Lighting Boards",
+  image: "https://plus.unsplash.com/premium_photo-1674837818249-d9f338c5fc53?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bGlnaHRpbmclMjBib2FyZHN8ZW58MHx8MHx8fDA%3D",
+  description: "LED and lighting boards for shops and commercial branding with high visibility."
+},
+{
+  title: "Prospect Printing & Designing",
+  image: "https://images.unsplash.com/photo-1625036133991-ca35f7932ce4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRlc2lnbmluZ3xlbnwwfHwwfHx8MA%3D%3D",
+  description: "Professional prospect (brochure) printing and creative designing for businesses."
+},
+{
+  title: "Seals / Stamps",
+  image: "https://images.unsplash.com/photo-1611075551111-dfda5f9c6f02?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHN0YW1wfGVufDB8fDB8fHww",
+  description: "Rubber and self-inking seals & stamps for offices, schools, and institutions."
+},
+{
+  title: "Bill Books",
+  image: "https://plus.unsplash.com/premium_photo-1764241715149-3670762e49c8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmlsbCUyMGJvb2tzfGVufDB8fDB8fHww",
+  description: "Custom printed bill books, invoices, and receipt books for businesses."
 }
+
 ,
   {
     title: "Customized Islamic Frames",
